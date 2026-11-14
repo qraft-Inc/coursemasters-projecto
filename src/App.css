@@ -3229,3 +3229,88 @@
   .gantt-header,
   .gantt-row { grid-template-columns: 170px 1fr; }
 }
+
+/* ---- Partner logos ---- */
+.logo-chip {
+  align-items: center;
+  background: #fff;
+  border-radius: 8px;
+  display: inline-flex;
+  flex-shrink: 0;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.logo-chip img {
+  display: block;
+  height: 100%;
+  object-fit: contain;
+  width: 100%;
+}
+
+.brand-logo {
+  height: 38px;
+  padding: 4px 6px;
+  width: 74px;
+}
+
+.client-workspace {
+  align-items: stretch;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.client-logo {
+  height: 46px;
+  padding: 6px 10px;
+  width: 100%;
+}
+
+/* Beats the older `.workspace-switcher > div:nth-child(2)` column rule. */
+.client-workspace > div.client-workspace-meta {
+  align-items: center;
+  flex-direction: row;
+  gap: 8px;
+  justify-content: space-between;
+}
+
+.client-workspace-meta > div {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.client-workspace-meta > svg {
+  color: #8ca198;
+  flex-shrink: 0;
+}
+
+.partner-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin: 18px 0 4px;
+}
+
+.partner-strip > div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.partner-strip small {
+  color: #a9c4b3;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+}
+
+.partner-strip .logo-chip {
+  height: 44px;
+  padding: 6px 12px;
+}
+
+.partner-strip .logo-chip img {
+  width: auto;
+}

@@ -37,6 +37,8 @@ import {
 } from './lib/types'
 import { fetchGoogleSheetDataset, GOOGLE_SHEET_URL, REFRESH_INTERVAL_MS } from './lib/google-sheets'
 import { buildTimeline, daysOverdue, isOverdue, ownerWorkload, parseSheetDate, splitOwners, summarizeTasks } from './lib/analytics'
+import anischolarLogo from './assets/anischolar-logo.png'
+import qraftLogo from './assets/qraft-academy-logo.png'
 import './App.css'
 
 type ViewKey = 'overview' | 'workplan' | 'timeline' | 'production' | 'reviews' | 'lms' | 'import'
@@ -289,6 +291,10 @@ function App() {
             <div className="welcome-meta">
               <span><CalendarDays size={15} /> 2 Nov 2026 – 24 Jan 2027 <i>proposed</i></span>
               <span><Users size={15} /> AniScholar Career Hub Ltd</span>
+            </div>
+            <div className="partner-strip">
+              <div><small>DELIVERED BY</small><span className="logo-chip"><img src={qraftLogo} alt="Qraft Academy | CourseMasters" /></span></div>
+              <div><small>FOR</small><span className="logo-chip"><img src={anischolarLogo} alt="AniScholar Career Hub" /></span></div>
             </div>
             <button className="button button-light" onClick={() => setActiveView('workplan')} type="button">
               Open master workplan <ArrowUpRight size={16} />
@@ -806,8 +812,8 @@ function App() {
     <div className="app-shell">
       {mobileMenuOpen && <button className="mobile-backdrop" aria-label="Close navigation" onClick={() => setMobileMenuOpen(false)} type="button" />}
       <aside className={`sidebar ${mobileMenuOpen ? 'sidebar-open' : ''}`}>
-        <div className="brand-lockup"><div className="brand-monogram">CM</div><div><strong>CourseMasters</strong><small>PROJECTOS</small></div><button className="mobile-close" aria-label="Close menu" onClick={() => setMobileMenuOpen(false)} type="button"><X size={18} /></button></div>
-        <div className="workspace-switcher"><div className="workspace-avatar">A</div><div><small>WORKSPACE</small><strong>AniScholar WRC</strong></div><ChevronDown size={16} /></div>
+        <div className="brand-lockup"><span className="logo-chip brand-logo"><img src={qraftLogo} alt="Qraft Academy" /></span><div><strong>CourseMasters</strong><small>PROJECTOS</small></div><button className="mobile-close" aria-label="Close menu" onClick={() => setMobileMenuOpen(false)} type="button"><X size={18} /></button></div>
+        <div className="workspace-switcher client-workspace"><span className="logo-chip client-logo"><img src={anischolarLogo} alt="AniScholar Career Hub" /></span><div className="client-workspace-meta"><div><small>CLIENT WORKSPACE</small><strong>AniScholar WRC</strong></div><ChevronDown size={16} /></div></div>
         <div className="sidebar-label">PROJECT</div>
         <nav className="main-nav" aria-label="Primary navigation">
           {navigation.map((item) => { const Icon = item.icon; return <button aria-current={activeView === item.id ? 'page' : undefined} className={activeView === item.id ? 'nav-item active' : 'nav-item'} key={item.id} onClick={() => { setActiveView(item.id); setMobileMenuOpen(false) }} type="button"><Icon size={18} /><span>{item.label}</span>{item.id === 'workplan' && dataset && <span className="nav-count">{tasks.length}</span>}</button> })}
