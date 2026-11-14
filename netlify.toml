@@ -1,0 +1,39 @@
+# Netlify deployment for CourseMasters ProjectOS (Vite + React static site).
+
+[build]
+  # Tests run first so a failing change never reaches the live site.
+  command = "npm test && npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# Views use hash URLs (#workplan, #timeline, ...), but any direct path still falls back to the app.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    # Only this site and the read-only Google Sheet endpoint are reachable from the page.
+    Content-Security-Policy = "default-src 'self'; connect-src 'self' https://docs.google.com; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'"
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+    # Internal project dashboard: keep it out of search engines.
+    X-Robots-Tag = "noindex, nofollow"
+
+# Hashed build assets never change, so browsers can cache them for a year.
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Always re-check the page itself so new deploys show up immediately.
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"

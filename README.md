@@ -19,6 +19,16 @@ npm run lint
 npm run build
 ```
 
+## Deploy to Netlify
+
+`netlify.toml` holds all build settings, so no dashboard configuration is needed.
+
+1. In Netlify choose **Add new site → Import an existing project → GitHub** and pick this repository.
+2. Leave the detected settings as they are: Netlify runs `npm test && npm run build` on Node 22 and publishes `dist`.
+3. Each push to `main` redeploys automatically. A failing test stops the deploy and keeps the previous version live.
+
+The site sends strict security headers, only connects to `docs.google.com`, and asks search engines not to index it. It is still publicly reachable by anyone with the URL; see the access note below.
+
 ## Live Google Sheet connection
 
 ProjectOS reads the [AniScholar WRC Live Workplan](https://docs.google.com/spreadsheets/d/1jodhzJhTFvFY_H-SqpjOZiUpgKDU74uvEZJ0PgzNvy8/edit?usp=sharing) directly. It fetches all eight tabs on startup and every 60 seconds; the connection page also has a manual refresh button. No workbook download or upload is required.
