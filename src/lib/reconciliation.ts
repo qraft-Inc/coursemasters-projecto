@@ -56,6 +56,7 @@ const DELIVERABLE_FIELD_MAP: Partial<Record<string, keyof ImportedDataset['deliv
   'Approval status': 'approvalStatus',
   'Approval date': 'approvalDate',
   'Evidence or link': 'evidence',
+  Thumbnail: 'thumbnail',
 }
 
 const MILESTONE_FIELD_MAP: Partial<Record<string, keyof ImportedDataset['milestones'][number]>> = {

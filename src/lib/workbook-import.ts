@@ -112,6 +112,7 @@ function mapDeliverables(rows: SourceRow[]): Deliverable[] {
       approvalStatus: stringValue(row['Approval status']),
       approvalDate: stringValue(row['Approval date']),
       evidence: stringValue(row['Evidence or link']),
+      thumbnail: stringValue(row.Thumbnail),
     }]
   })
 }

@@ -18,7 +18,8 @@
   for = "/*"
   [headers.values]
     # Only this site and the read-only Google Sheet endpoint are reachable from the page.
-    Content-Security-Policy = "default-src 'self'; connect-src 'self' https://docs.google.com; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'"
+    # Card thumbnails may load from Cloudinary (the sheet's Thumbnail column).
+    Content-Security-Policy = "default-src 'self'; connect-src 'self' https://docs.google.com; img-src 'self' data: https://res.cloudinary.com; style-src 'self' 'unsafe-inline'; script-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'"
     X-Frame-Options = "DENY"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"

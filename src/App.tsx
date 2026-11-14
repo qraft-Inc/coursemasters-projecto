@@ -160,6 +160,14 @@ function safeExternalUrl(value: string): string | null {
   }
 }
 
+/** Card thumbnails are limited to HTTPS Cloudinary images, matching the site's image security policy. */
+function safeThumbnailUrl(value: string): string | null {
+  const href = safeExternalUrl(value)
+  if (!href) return null
+  const url = new URL(href)
+  return url.protocol === 'https:' && url.hostname === 'res.cloudinary.com' ? href : null
+}
+
 function App() {
   const [activeView, setActiveViewState] = useState<ViewKey>(viewFromHash)
   const [shareNotice, setShareNotice] = useState('')
@@ -694,14 +702,22 @@ function App() {
           <section className="review-grid" aria-label="Deliverables for review">
             {visibleDeliverables.map((item, index) => {
               const evidenceUrl = safeExternalUrl(item.evidence)
+              const thumbnailUrl = safeThumbnailUrl(item.thumbnail)
               return (
                 <article className="review-card" key={item.id}>
+                  {thumbnailUrl ? (
+                    <div className="review-cover review-cover-image">
+                      <img src={thumbnailUrl} alt="" loading="lazy" />
+                      <span className="review-cover-kicker">DELIVERABLE · {item.milestone || 'UNSCHEDULED'}</span>
+                    </div>
+                  ) : (
                   <div className={`review-cover review-cover-${index % 4}`} aria-hidden="true">
                     <span className="review-cover-kicker">DELIVERABLE · {item.milestone || 'UNSCHEDULED'}</span>
                     <FileCheck2 size={37} strokeWidth={1.4} />
                     <strong>{item.id}</strong>
                     <span className="review-cover-caption">SUBMISSION & APPROVAL</span>
                   </div>
+                  )}
                   <div className="review-card-body">
                     <div className="review-card-heading">
                       <span className="activity-id">{item.id}</span>

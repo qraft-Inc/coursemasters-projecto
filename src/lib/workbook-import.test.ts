@@ -83,3 +83,18 @@ describe('workbook import', () => {
     await expect(parseWorkbook(file)).rejects.toThrow(/missing required sheets/)
   })
 })
+
+describe('deliverable thumbnails', () => {
+  it('reads the optional Thumbnail column and defaults to blank', () => {
+    const csv = [
+      '"ID","Deliverable","Evidence or link","Thumbnail"',
+      '"D13","Voice-over script","https://docs.google.com/presentation/d/x","https://res.cloudinary.com/demo/image/upload/a.jpg"',
+      '"D14","No cover","",""',
+    ].join('\n')
+    const dataset = parseCsvSheet(csv, 'Deliverables and Approvals')
+    expect(dataset.deliverables.map((item) => item.thumbnail)).toEqual([
+      'https://res.cloudinary.com/demo/image/upload/a.jpg',
+      '',
+    ])
+  })
+})

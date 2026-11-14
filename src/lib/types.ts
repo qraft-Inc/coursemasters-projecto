@@ -52,6 +52,8 @@ export interface Deliverable {
   approvalStatus: string
   approvalDate: string
   evidence: string
+  /** Optional cover image URL from the sheet's "Thumbnail" column. */
+  thumbnail: string
 }
 
 export interface PaymentMilestone {
